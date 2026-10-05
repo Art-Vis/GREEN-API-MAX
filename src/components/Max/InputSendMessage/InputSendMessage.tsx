@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { IoSend } from 'react-icons/io5';
+import { CgAttachment } from 'react-icons/cg';
+import { FaCircleArrowUp } from 'react-icons/fa6';
 
 interface InputSendMessageProps {
 	message: string;
@@ -15,17 +15,17 @@ const InputSendMessage: FC<InputSendMessageProps> = ({
 }) => {
 	return (
 		<div className='chat-window__send'>
-			<button className='chat-window__send-btn'>
-				<FaPlus />
+			<button className='chat-window__send-btn attachment-btn'>
+				<CgAttachment />
 			</button>
 			<textarea
 				className='chat-window__input'
 				value={message}
 				onChange={e => setMessage(e.target.value)}
-				placeholder='Введите сообщение'
+				placeholder='Сообщение'
 			/>
 			<button className='chat-window__send-btn' onClick={handleSendMessage}>
-				<IoSend />
+				<FaCircleArrowUp />
 			</button>
 		</div>
 	);

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-import WhatsApp from './components/WhatsApp/WhatsApp';
 import AuthForm from './components/AuthForm/AuthForm';
 import PrivateRoute from './components/PrivateRouter/PrivateRouter';
 import { AuthData } from './components/type/interface';
+import Max from './components/Max/Max';
 
 function App() {
 	const [authData, setAuthData] = useState<AuthData | null>(null);
@@ -59,7 +59,7 @@ function App() {
 						path='/'
 						element={
 							authDataToPass ? (
-								<WhatsApp authData={authDataToPass} onLogout={handleLogout} />
+								<Max authData={authDataToPass} onLogout={handleLogout} />
 							) : (
 								<AuthForm onAuthSuccess={handleAuthSuccess} />
 							)
