@@ -1,14 +1,18 @@
 export type AuthData = {
-	apiUrl: string;
-	idInstance: string;
-	apiTokenInstance: string;
-	seconds: number;
+  apiUrl: string;
+  idInstance: string;
+  apiTokenInstance: string;
+  seconds: number;
 };
+export interface Message {
+  sender: string;
+  text: string;
+}
 
 export interface Chat {
-	id?: number;
-	name: string;
-	phone: string;
-	lastMessage: string;
-	messages: { sender: string; text: string }[];
+  id: string;
+  name: string;
+  phone: string;
+  lastMessage: string;
+  messages: Message[];
 }

@@ -8,7 +8,7 @@ interface MessageReceiverProps {
   chats: Chat[];
   setChats: React.Dispatch<React.SetStateAction<Chat[]>>;
   selectedChat: Chat;
-  setSelectedChat: React.Dispatch<React.SetStateAction<Chat | null>>;
+  setSelectedChatId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const MessageReceiver: FC<MessageReceiverProps> = ({
@@ -16,7 +16,7 @@ const MessageReceiver: FC<MessageReceiverProps> = ({
   chats,
   setChats,
   selectedChat,
-  setSelectedChat,
+  setSelectedChatId,
 }) => {
   const receivedMessagesRef = useRef<string[]>([]);
 
@@ -66,7 +66,7 @@ const MessageReceiver: FC<MessageReceiverProps> = ({
           );
 
           setChats(updatedChats);
-					setSelectedChat(updatedChat);
+					setSelectedChatId(updatedChat.id);
 
           receivedMessagesRef.current = [
             ...receivedMessagesRef.current,
@@ -93,7 +93,7 @@ const MessageReceiver: FC<MessageReceiverProps> = ({
     chats,
     selectedChat,
     setChats,
-		setSelectedChat,
+		setSelectedChatId,
   ]);
 
   return null;

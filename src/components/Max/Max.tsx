@@ -17,14 +17,14 @@ interface MaxProps {
 }
 
 const Max: React.FC<MaxProps> = ({ authData, onLogout }) => {
-	const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
+	const [selectedChatId, setSelectedChatId] = useState<string | null>(null)
 	const [isInputState, setIsInputState] = useState<boolean>(false);
 	const [message, setMessage] = useState('');
-	// const [chatMessages, setChatMessages] = useState<string[]>([]);
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [showAddNewContact, setShowAddNewContact] = useState(false);
 	const [chats, setChats] = useState<Chat[]>([]);
 
+	const selectedChat = chats.find(chat => chat.id === selectedChatId) ?? null;
 	const { apiUrl, idInstance, apiTokenInstance } = authData;
 
 	const handleAddButtonClick = () => {
@@ -32,15 +32,17 @@ const Max: React.FC<MaxProps> = ({ authData, onLogout }) => {
 	};
 
 	const handleAddContact = (phone: string) => {
+
 		const newChat: Chat = {
-			id: chats.length + 1,
+			id: `${phone}@c.us`,
 			name: `${phone}`,
 			phone: `${phone}`,
 			lastMessage: '',
 			messages: [],
 		};
 		setPhoneNumber(newChat.phone);
-		setChats([...chats, newChat]);
+		setChats(prev => [...prev, newChat]);
+		setSelectedChatId(newChat.id);
 		setShowAddNewContact(false);
 	};
 
@@ -61,25 +63,23 @@ const Max: React.FC<MaxProps> = ({ authData, onLogout }) => {
 				}
 			);
 
+			if (!selectedChat) return;
+
 			const updatedChat: Chat = {
-				...selectedChat,
-				id: selectedChat?.id ?? Date.now(),
-				name: selectedChat?.name ?? 'Неизвестный',
-				phone: selectedChat?.phone ?? '',
-				messages: [
-					...(selectedChat?.messages || []),
-					{ sender: 'Me', text: message },
-				],
-				lastMessage: message,
+  			...selectedChat,
+  			messages: [
+  			  ...selectedChat.messages,
+  			  { sender: 'Me', text: message },
+  			],
+  			lastMessage: message,
 			};
 
 			const updatedChats = chats.map(chat =>
-				chat.id === selectedChat?.id ? updatedChat : chat
+  			chat.id === selectedChat.id ? updatedChat : chat
 			);
 
-			// setChatMessages([...chatMessages, `You: ${message}`]);
 			setChats(updatedChats);
-			setSelectedChat(updatedChat);
+			setSelectedChatId(updatedChat.id);
 			setMessage('');
 		} catch (error) {
 			console.error(`${error}`);
@@ -110,7 +110,7 @@ const Max: React.FC<MaxProps> = ({ authData, onLogout }) => {
 
       <ChatList
         chats={chats}
-        setSelectedChat={setSelectedChat}
+        setSelectedChatId={setSelectedChatId}
         iconProfile={iconProfile}
       />
     </div>
@@ -129,7 +129,7 @@ const Max: React.FC<MaxProps> = ({ authData, onLogout }) => {
               chats={chats}
               setChats={setChats}
               selectedChat={selectedChat}
-              setSelectedChat={setSelectedChat}
+              setSelectedChatId={setSelectedChatId}
             />
 
             {selectedChat.messages.map((msg, index) => (

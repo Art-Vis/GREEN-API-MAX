@@ -2,14 +2,14 @@ import { FC } from 'react';
 import { Chat } from '../../type/interface';
 
 interface ChatListProps {
-	chats: Chat[];
-	setSelectedChat: (chat: Chat) => void;
-	iconProfile: string;
+  chats: Chat[];
+  setSelectedChatId: React.Dispatch<React.SetStateAction<string | null>>;
+  iconProfile: string;
 }
 
 const ChatList: FC<ChatListProps> = ({
 	chats,
-	setSelectedChat,
+	setSelectedChatId,
 	iconProfile,
 }) => {
 	return (
@@ -17,7 +17,7 @@ const ChatList: FC<ChatListProps> = ({
 			{chats.map(chat => (
 				<div
 					key={chat.id}
-					onClick={() => setSelectedChat(chat)}
+					onClick={() => setSelectedChatId(chat.id)}
 					className='chat-list__item'
 				>
 					<img className='chat-list__item-avatar' src={iconProfile} alt='' />
