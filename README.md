@@ -2,10 +2,10 @@
 Веб-приложение для работы с мессенджером MAX через API GREEN-API.
 
 ## Локальный запуск
-1.git clone <URL-репозитория>
-2.cd GREEN-API-MAX
-3.npm install
-4.npm run dev
+1. git clone <URL-репозитория>
+2. cd GREEN-API-MAX
+3. npm install
+4. npm run dev
 
 ## Инструкция
 1. Вводим данные своего инстанса
